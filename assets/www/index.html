@@ -1,49 +1,97 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.icons-1.4.5.min.css">
+<link rel="stylesheet" href="jquery.mobile-1.4.5/theme-classic.css">
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css">
+<link rel="stylesheet" href="css/index_calendar.css">
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- <script src="cordova.js"></script>
+<script src="cordova_plugins.js"></script> -->
+<title>Project Plan App</title>
+<style>
+	#content{
+		padding:0;margin:0;
+	}
+	#user_layer
+	{
+		overflow:hidden;
+	}
+	#user_img > img
+	{
+		width:80px;
+		height:80px;
+		border-radius:80px;
+		float:left;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		//CONTENT HEIGHT 설정
+		var deviceHeight = window.innerHeight;
+		var headerHeight = $("#header").height();
+		var footerHeight = $("#footer").height();
+		var contentHeight = deviceHeight-headerHeight-footerHeight;
+		var cLayerHeight = contentHeight-$("#user_layer").height();
+		$("body").css("height",deviceHeight);
+		$("#content").css("height",contentHeight);
+		$("#calendar_layer").css("height",cLayerHeight);
+	});
+</script>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header" id="header" data-position="fixed">
+			<h1>PLAN APP</h1>
+		</div>
+		<div data-role="content" id="content">
+			<div id="user_layer">
+				<div id="user_img"><img src="img/userimg.jpg"></div>
+				<div id="user_info">
+					USER ID<br>
+					USER NAME&INFO<br>
+					<select id="mode" data-mini="true" data-inline="true">
+						<option value="modeA">MODE A</option>
+						<option value="modeB">MODE B</option>
+						<option value="modeC">MODE C</option>
+						<option value="modeD">MODE D</option>
+					</select>
+				</div>
+			</div>
+			<div id="calendar_layer">
+				<ul>
+					<li>12/18</li>
+					<li>12/19</li>
+					<li>12/20</li>
+					<li>12/21</li>
+					<li>12/22</li>
+					<li>12/23</li>
+					<li>12/24</li>
+					<li>12/25</li>
+					<li>12/26</li>
+					<li>12/27</li>
+				</ul>
+			</div>
+			<div id="calendar_textlayer">
+				<button data-icon="arrow-l" data-iconpos="left"></button>
+				<p>
+					TEST DAY
+				</p>
+				<button data-icon="arrow-r" data-iconpos="right"></button>
+			</div>
+		</div>
+		<div data-role="footer" id="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#">MENU1</a></li>
+					<li><a href="#">MENU2</a></li>
+					<li><a href="#">MENU3</a></li>
+					<li><a href="#">MENU4</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>		
 </html>

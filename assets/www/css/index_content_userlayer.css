@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+#userlayer{
+	overflow:hidden;
+	background:url("../img/index_content_userlayer/weatherBack.jpg") no-repeat;
+	background-position:top left;
+	background-size:100% 100%;
+	color:blue;
+	position:relative;
+}
+
+#user_img{
+	width:100px;
+	height:100px;
+	float:right;
+	background:url("../img/index_content_userlayer/userimg.jpg") no-repeat;
+	background-size:100% 100%;
+	border-radius:100px;
+	position:absolute;
+	bottom:50px;
+	right:50px;	
+}
+#user_weather{
+	width:100%;
+	text-align:center;
+}
+#user_weather > p:nth-child(1){
+	font-weight:bold;
+	font-size:1.5em;
+}
+#user_weather > p:nth-child(2){
+	font-weight:bold;
+	font-size:2em;
+}
+
+#user_today{
+	margin-top:30px;
+	margin-left:30px;
+	margin-bottom:100px;
+	width:50%;
+}
+#user_today > p:nth-child(1){
+	font-weight:bold;
+	font-size:3em;
+	float:left;
+}
+#user_today > p:nth-child(2){
+	font-size:1.5em;
+}
+#user_today > p:nth-child(3){
+	font-size:1em;
+}

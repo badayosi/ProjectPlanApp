@@ -2,94 +2,151 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://cdn.rawgit.com/young-ha/webfont-archive/master/css/PureunJeonnam.css" rel="stylesheet" type="text/css">
+<!-- JQUERY MOBILE -->
 <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.icons-1.4.5.min.css">
 <link rel="stylesheet" href="jquery.mobile-1.4.5/theme-classic.css">
 <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css">
-<link rel="stylesheet" href="css/index_calendar.css">
+<!-- PLUGIN -->
+<link rel="stylesheet" href="css/slick.css">
+<link rel="stylesheet" href="css/number-pb.css">
+<!-- CUSTOM -->
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/index_content.css">
+<link rel="stylesheet" href="css/index_content_userlayer.css">
+<link rel="stylesheet" href="css/index_panel_side.css">
+<link rel="stylesheet" href="css/index_content_daylist.css">
+<link rel="stylesheet" href="css/index_content_planzone.css">
+
+<!-- BASIC -->
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- PLUGIN -->
+<script type="text/javascript" src="js/slick.js"></script>
+<script type="text/javascript" src="js/number-pb.js"></script>
+<script type="text/javascript" src="js/jquery.velocity.min.js"></script>
+<!-- CUSTOM -->
+<script type="text/javascript" src="js/database_control.js"></script>
+<script type="text/javascript" src="js/index_content_daylist.js"></script>
+<script type="text/javascript" src="js/index_content_daytext.js"></script>
+<script type="text/javascript" src="js/index_content_planzone.js"></script>
 <!-- <script src="cordova.js"></script>
 <script src="cordova_plugins.js"></script> -->
 <title>Project Plan App</title>
 <style>
-	#content{
-		padding:0;margin:0;
-	}
-	#user_layer
-	{
-		overflow:hidden;
-	}
-	#user_img > img
-	{
-		width:80px;
-		height:80px;
-		border-radius:80px;
-		float:left;
+	*{font-family: 'PureunJeonnam', 'Sans-serif'; padding:0; margin:0;}
+	
+	#arrow_left{width:20%;float:left;}
+	#arrow_right{width:20%;float:left;}
+	
+	#side_user_img{
+		width:30%;
 	}
 </style>
 <script type="text/javascript">
+	var dayListPosition;
+
 	$(function(){
 		//CONTENT HEIGHT 설정
 		var deviceHeight = window.innerHeight;
-		var headerHeight = $("#header").height();
-		var footerHeight = $("#footer").height();
-		var contentHeight = deviceHeight-headerHeight-footerHeight;
-		var cLayerHeight = contentHeight-$("#user_layer").height();
+		var contentHeight = deviceHeight;
+		var LayerHeight = contentHeight-$("#userlayer").height()-$("#menubar").height();
 		$("body").css("height",deviceHeight);
 		$("#content").css("height",contentHeight);
-		$("#calendar_layer").css("height",cLayerHeight);
+		$("#calendar_layer").css("height",LayerHeight);
+		$("#calendar_textlayer").css("height",LayerHeight);
+		
+		//해당 날짜 위치 선정
+		listSetPosition();
+
+		var basicBar = $("#plan_zone").find('.number-pb').NumberProgressBar({
+			style: 'basic',
+			duration: 3000,
+			min: 0,
+		    max: 66
+		})
+		
+		basicBar.reach(66);
+		
+		$("#nav_first").on("click",function(){
+			createFiveList(formatDate());
+		});
+		
+		$("#nav_second").on("click",function(){
+			createHabitList(formatDate());
+		});
 	});
 </script>
 </head>
 <body>
 	<div data-role="page">
-		<div data-role="header" id="header" data-position="fixed">
-			<h1>PLAN APP</h1>
-		</div>
-		<div data-role="content" id="content">
-			<div id="user_layer">
-				<div id="user_img"><img src="img/userimg.jpg"></div>
-				<div id="user_info">
-					USER ID<br>
-					USER NAME&INFO<br>
-					<select id="mode" data-mini="true" data-inline="true">
-						<option value="modeA">MODE A</option>
-						<option value="modeB">MODE B</option>
-						<option value="modeC">MODE C</option>
-						<option value="modeD">MODE D</option>
-					</select>
+		<div data-role="panel" id="side" data-display="overlay">
+			<div id="side_user">
+				<div id="side_user_img"></div>
+				<div id="side_user_info">
+					<p>USER_NAME</p>
+					<p>USER_INFO</p>
 				</div>
 			</div>
-			<div id="calendar_layer">
+			<div id="side_menu">
 				<ul>
-					<li>12/18</li>
-					<li>12/19</li>
-					<li>12/20</li>
-					<li>12/21</li>
-					<li>12/22</li>
-					<li>12/23</li>
-					<li>12/24</li>
-					<li>12/25</li>
-					<li>12/26</li>
-					<li>12/27</li>
+					<li><a href="#">MY PROFILE</a></li>
+					<li><a href="#">NEW PLAN</a></li>
+					<li><a href="#">TEMP MENU</a></li>
+					<li><a href="#">SETTING</a></li>
+					<li><a href="#">HELP</a></li>
+				</ul>
+			</div>
+		</div>
+	
+		<div data-role="content" id="content">
+			
+			<div id="userlayer">
+				<a href="#side"><img src="img/header_search.gif"></a>
+				<a href="#"><img src="img/header_search.gif"></a>
+				<div id="user_weather">
+					<p>구름 없음</p>
+					<p>영하 2도</p>
+					<p>대구시 달서구 대명동</p>
+				</div>
+				<div id="user_today">
+					<p>12</p>
+					<p>Monday</p>
+					<p>12월, 2017</p>
+				</div>
+				<div id="user_img"></div>
+			</div>
+			
+			<div data-role="navbar" id="menubar">
+				<ul>
+					<li><a href="#" id="nav_first"><img src="img/x.png"></a></li>
+					<li><a href="#" id="nav_second"><img src="img/x.png"></a></li>
+					<li><a href="#"><img src="img/x.png"></a></li>
+				</ul>
+			</div>
+			
+			<div id="calendar_layer">
+				<ul id="daylist">
+					
 				</ul>
 			</div>
 			<div id="calendar_textlayer">
-				<button data-icon="arrow-l" data-iconpos="left"></button>
-				<p>
-					TEST DAY
-				</p>
-				<button data-icon="arrow-r" data-iconpos="right"></button>
-			</div>
-		</div>
-		<div data-role="footer" id="footer" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#">MENU1</a></li>
-					<li><a href="#">MENU2</a></li>
-					<li><a href="#">MENU3</a></li>
-					<li><a href="#">MENU4</a></li>
-				</ul>
+				<div id="dayinfo">
+					<ul>
+						<li id="arrow_left"><img src="img/left.png"></li>
+						<li>
+							<div>
+								<ul id="slider_slick">
+									
+								</ul>
+							</div>
+						</li>
+						<li id="arrow_right"><img src="img/right.png"></li>
+					</ul>
+				</div>
+				<div id="plan_zone">
+					
+				</div>
 			</div>
 		</div>
 	</div>

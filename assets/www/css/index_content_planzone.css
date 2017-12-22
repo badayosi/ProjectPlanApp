@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+.fiveplan_child{
+	width:90%;
+	border : 5px solid red;
+	border-radius: 10px;
+	background:red;
+	box-shadow:3px 3px black;
+	margin:30px auto;
+}
+
+.fiveplan_button{
+	text-align:right;
+}
+.fiveplan_button > a{
+	text-decoration:none;
+}
+
+.habitplan_parent{
+	list-style:none;
+}
+.habitplan_child{
+	width:90%;
+	border : 5px solid red;
+	border-radius: 10px;
+	background:red;
+	box-shadow:3px 3px black;
+	margin:10px auto;
+}
+.number-pb{
+	width:90%;
+	margin:20px auto;
+}

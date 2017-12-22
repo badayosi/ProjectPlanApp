@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+
+#side_user{
+	width:100%;
+	overflow:hidden;
+	position:relative;
+	margin-top:30px;
+}
+
+
+#side_user_img{
+	width:50px;
+	height:50px;
+	background:url("../img/index_panel_side/userimg.jpg") no-repeat;
+	background-size:100% 100%;
+	border-radius:10px;
+	float:left;
+}
+
+
+#side_user_info{
+	float:left;
+	width:50%;
+	margin-left:15px;
+}
+#side_user_info > p:nth-child(1){
+	font-size:1.5em;
+}
+
+
+#side_menu{
+	width:100%;
+	margin-top:100px;
+}
+#side_menu > ul{
+	width:100%;
+	list-style:none;
+}
+#side_menu > ul > li{
+	margin:50px 0px;
+}
+#side_menu > ul > li > a{
+	text-decoration:none;
+	color:white;
+	font-size:1.2em;
+}
